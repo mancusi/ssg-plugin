@@ -1,0 +1,66 @@
+import * as paths from "../paths"
+import * as path from "path"
+import glob from "glob"
+import logger from "../log";
+import { generateHydrationEntryPoints } from "./hydration";
+
+const REACT_EXTENSIONS = new Set([".tsx", ".jsx"]);
+
+export default async () => {
+  console.log(yextBanner);
+  clean();
+
+  const templates: string[] = glob.sync(
+    `${paths.templateDir}/**/*.{tsx,jsx,js,ts}`
+  );
+
+  const reactTemplates = templates.filter((templatePath) =>
+    REACT_EXTENSIONS.has(path.parse(templatePath).ext)
+  );
+
+  let finisher = logger.timedLog({
+    startLog: "Generating entry-points for hydration",
+  });
+  await generateHydrationEntryPoints(reactTemplates);
+  finisher.succeed(
+    `Generated ${reactTemplates.length} hydration entry-point${
+      reactTemplates.length > 1 ? "s" : ""
+    }`
+  );
+}
+
+const clean = () => {
+  const finisher = logger.timedLog({
+    startLog: "Cleaning build artifacts",
+  });
+  try {
+    fs.rmSync(paths.serverBundleOutputDir, { recursive: true });
+    fs.rmSync(paths.hydrationBundleOutputDir, { recursive: true });
+    fs.rmSync(paths.hydrationOutputDir, { recursive: true });
+    finisher.succeed("Finished cleaning");
+  } catch (e) {
+    finisher.fail("Nothing to clean");
+  }
+};
+
+const yextBanner = `
+              ,▄▄███▀▀▀▀▀███▄,
+           ▄█▀▀└            └╙▀█▄
+        ,██▀                    ╙▀█,
+       ▄█└                        └██
+      █▀      █▄    ▄▌  ▄████▄      ╙█─
+     █▌        ╙█▄▄█▀  █▀ ,██╙       ╙█
+    ▐█           █▌    █▄█▀└ █▌       █▌
+    █▌           █▌     ▀▀██▀▀        ▐█
+    █▌                                ▐█
+    █▌        ▄▄    ▄▄ ████████       ▐█
+    ╟█         ╙█▄▄█▀     █▌          ╟█
+    "█▄        ,████      █▌          █▀
+     ╙█µ      █▀└  ╙█▌    █▌         █▀
+      ╙█▄                          ▄█▀
+        ▀█▄                      ▄█▀'
+          ╙██▄                ▄██▀'
+            '╙▀██▄▄▄▄▄▄▄▄▄▄██▀▀─
+                  └└╙╙╙╙└└'
+      Built with the Yext SSG Plugin
+`;
