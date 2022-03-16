@@ -1,34 +1,42 @@
-import {Plugin} from "vite";
+import { Plugin } from "vite";
 import buildStart from "./buildStart/buildStart";
 import buildEnd from "./buildEnd/buildEnd";
 import { readdir } from "fs/promises";
 import { parse } from "path";
+import * as paths from "./paths";
 
+const plugin = (): Plugin => ({
+  name: "yext-sites-ssg",
+  config: async (config) => {
+    return {
+      build: {
+        manifest: true,
+        rollupOptions: {
+          preserveEntrySignatures: "strict",
+          input: (await readdir(paths.templateDir)).reduce(
+            (input, template) => {
+              console.log(`${paths.templateDir}/${template}`);
+              const parsedPath = parse(template);
 
-const plugin = (): Plugin => {
-  return {
-    name: "yext-sites-ssg",
-    config: async (config) => {
-      const dir = await readdir("./src/templates");
-      const input = {};
-      for (const template of dir) {
-        const parsedPath = parse(template);
-        input[`server/${parsedPath.name}`] = `./src/templates/${template}`;
-      }
+              if (parsedPath.ext.includes("tsx")) {
+                input[
+                  `hydrate/${parsedPath.name}`
+                ] = `${paths.hydrationOutputDir}/${template}`;
+              }
 
-      return {
-        build: {
-          manifest: true,
-          rollupOptions: {
-            preserveEntrySignatures: "strict",
-            input,
-          },
+              input[
+                `server/${parsedPath.name}`
+              ] = `${paths.templateDir}/${template}`;
+              return input;
+            },
+            {}
+          ),
         },
-      };
-    },
-    buildStart,
-    buildEnd,
-  };
-};
+      },
+    };
+  },
+  buildStart,
+  buildEnd,
+});
 
 export default plugin;

@@ -12,9 +12,9 @@ try {
     // external: ["@swc/core", "pnpapi", "esbuild", "mini-css-extract-plugin"],
     // inject: ["./bundler/import-meta-url.js"],
     // define: {
-      // "import.meta.url": "import_meta_url",
-      // "import.meta.resolve": "import_meta_resolve",
+    // "import.meta.url": "import_meta_url",
+    // "import.meta.resolve": "import_meta_resolve",
     // },
-    logLevel: "error"
-  })
+    logLevel: "error",
+  });
 } catch {}

@@ -36,14 +36,14 @@ export const createFeatureJson = async (
     streamConfig && streams.push({ ...streamConfig });
   }
 
-  const featureDir = path.dirname(featurePath)
+  const featureDir = path.dirname(featurePath);
   if (!fs.existsSync(featureDir)) {
     fs.mkdirSync(featureDir);
   }
 
   fs.writeFileSync(
     featurePath,
-    JSON.stringify({ features, streams }, null, "  "),
+    JSON.stringify({ features, streams }, null, "  ")
   );
   return featureNameToBundlePath;
 };

@@ -1,6 +1,6 @@
-import * as paths from "../paths"
-import * as path from "path"
-import glob from "glob"
+import * as paths from "../paths";
+import * as path from "path";
+import glob from "glob";
 import logger from "../log";
 import { generateHydrationEntryPoints } from "./hydration";
 
@@ -27,7 +27,7 @@ export default async () => {
       reactTemplates.length > 1 ? "s" : ""
     }`
   );
-}
+};
 
 const clean = () => {
   const finisher = logger.timedLog({

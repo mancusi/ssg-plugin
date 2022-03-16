@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/plugin.js",
   "scripts": {
-    "build": "node src/bundler.js"
+    "build": "node src/bundler.js",
+    "fmt": "npx prettier src -w"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@types/node": "^17.0.21",
     "esbuild": "^0.14.25",
+    "prettier": "^2.5.1",
     "typescript": "^4.6.2",
     "vite": "^2.8.6"
   }
