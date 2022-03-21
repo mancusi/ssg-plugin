@@ -1,5 +1,5 @@
 import fs from "fs";
-import { manifestPath, yextDir } from "../paths";
+import { distDir, manifestPath, yextDir } from "../paths";
 
 /**
  * Creates a manifest.json for use with the Yext Sites plugin
@@ -12,9 +12,10 @@ export const generateManifestFile = (
   const relativeBundlePaths = Array.from(featureNameToBundlePath.entries()).map(
     ([name, path]) => [name, manifestPath(path)]
   );
-
+  const bundlerManifest = fs.readFileSync(`${distDir}/manifest.json`);
   const manifest = {
     bundlePaths: Object.fromEntries(relativeBundlePaths),
+    bundlerManifest: JSON.parse(bundlerManifest.toString()),
   };
   fs.writeFileSync(
     `${yextDir}/manifest.json`,

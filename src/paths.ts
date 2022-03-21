@@ -17,13 +17,15 @@ const yextPath = "./.yext";
 const hydrationOut = `${yextPath}/hydration_templates`;
 const serverBundleOut = `${yextPath}/server_bundles`;
 const featureJson = "./sites-config/features.json";
+const distPath = "./dist";
 
 export const templateDir = resolvePath(templatePath);
 export const yextDir = resolvePath(yextPath);
 export const hydrationOutputDir = resolvePath(hydrationOut);
-export const hydrationBundleOutputDir = resolvePath("./dist/hydration");
+export const hydrationBundleOutputDir = resolvePath(`${distPath}/hydration`);
 export const serverBundleOutputDir = resolvePath(serverBundleOut);
 export const featureJsonDir = resolvePath(featureJson);
+export const distDir = resolvePath(distPath);
 
 /**
  * Creates a filepath relative to the generated manifest.json, which lives under .yext
