@@ -17,6 +17,7 @@ export const generateManifestFile = (
     bundlePaths: Object.fromEntries(relativeBundlePaths),
     bundlerManifest: JSON.parse(bundlerManifest.toString()),
   };
+
   fs.writeFileSync(
     `${yextDir}/manifest.json`,
     JSON.stringify(manifest, null, "  ")

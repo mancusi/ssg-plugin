@@ -1,10 +1,4 @@
-import bundlePathsJson from "./manifest.json" assert { type: "json" };
-
-type BundlePaths = {
-  bundlePaths: {
-    [key: string]: string;
-  };
-};
+import { Manifest } from "./manifest";
 
 const pathToModule = new Map();
 
@@ -12,10 +6,11 @@ const pathToModule = new Map();
  * @returns an array of template modules matching the document's feature.
  */
 export const readTemplateModules = async (
-  feature: string
+  feature: string,
+  manifest: Manifest,
 ): Promise<TemplateModule[]> => {
   const modules = [] as TemplateModule[];
-  const path = (bundlePathsJson as BundlePaths).bundlePaths[feature];
+  const path = manifest.bundlePaths[feature];
   if (!path) {
     throw new Error(`Could not find path for feature ${feature}`);
   }

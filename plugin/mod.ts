@@ -16,8 +16,8 @@ import {
  */
 
 export const Generate = async (data: Document): Promise<GeneratedPage> => {
-  const templates = await readTemplateModules(data.feature);
   const manifest = await loadManifest();
+  const templates = await readTemplateModules(data.feature, manifest);
   const responses = await generateResponses(templates, {
     document: data,
     __meta: { manifest },
