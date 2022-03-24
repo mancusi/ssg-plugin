@@ -2,6 +2,7 @@ import * as paths from "../paths";
 import * as path from "path";
 import glob from "glob";
 import logger from "../log";
+import fs from "fs";
 import { generateHydrationEntryPoints } from "./hydration";
 
 const REACT_EXTENSIONS = new Set([".tsx", ".jsx"]);
@@ -34,9 +35,7 @@ const clean = () => {
     startLog: "Cleaning build artifacts",
   });
   try {
-    fs.rmSync(paths.serverBundleOutputDir, { recursive: true });
-    fs.rmSync(paths.hydrationBundleOutputDir, { recursive: true });
-    fs.rmSync(paths.hydrationOutputDir, { recursive: true });
+    fs.rmSync(paths.yextDir, { recursive: true });
     finisher.succeed("Finished cleaning");
   } catch (e) {
     finisher.fail("Nothing to clean");

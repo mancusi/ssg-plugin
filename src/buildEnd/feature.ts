@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 import { TemplateModuleCollection } from "./moduleLoader";
 
@@ -14,15 +14,16 @@ export const createFeatureJson = async (
   const featureNameToBundlePath = new Map();
   for (const [featureName, mod] of templateModules.entries()) {
     const streamConfig = mod.config.stream || null;
+    const streamId = mod.config.streamId;
     let featureConfig: FeatureConfig = {
       name: featureName,
-      streamId: streamConfig ? streamConfig["$id"] : "",
+      streamId: streamConfig ? streamConfig["$id"] : streamId ? streamId : "",
       templateType: "JS",
       entityPageSet: {
         plugin: {},
       },
     };
-    if (!streamConfig || !streamConfig["$id"]) {
+    if (!streamId && (!streamConfig || !streamConfig["$id"])) {
       featureConfig = {
         ...featureConfig,
         staticPage: {
@@ -32,7 +33,7 @@ export const createFeatureJson = async (
       delete featureConfig["entityPageSet"];
     }
     features.push(featureConfig);
-    featureNameToBundlePath.set(featureName, mod.bundlePath);
+    featureNameToBundlePath.set(featureName, mod.serverPath);
     streamConfig && streams.push({ ...streamConfig });
   }
 

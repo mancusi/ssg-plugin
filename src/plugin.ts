@@ -1,11 +1,11 @@
-import { Plugin } from "vite";
+import { Plugin, PluginOption } from "vite";
 import buildStart from "./buildStart/buildStart";
 import buildEnd from "./buildEnd/buildEnd";
 import { readdir } from "fs/promises";
 import { parse } from "path";
 import * as paths from "./paths";
 
-const plugin = (): Plugin => ({
+const plugin = (): PluginOption[] => ([{
   name: "yext-sites-ssg",
   config: async (config) => {
     return {
@@ -15,7 +15,6 @@ const plugin = (): Plugin => ({
           preserveEntrySignatures: "strict",
           input: (await readdir(paths.templateDir)).reduce(
             (input, template) => {
-              console.log(`${paths.templateDir}/${template}`);
               const parsedPath = parse(template);
 
               if (parsedPath.ext.includes("tsx")) {
@@ -37,6 +36,6 @@ const plugin = (): Plugin => ({
   },
   buildStart,
   buildEnd,
-});
+}]);
 
 export default plugin;

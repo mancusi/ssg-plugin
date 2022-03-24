@@ -1,7 +1,6 @@
-const esbuild = require("esbuild");
 
 try {
-  esbuild.buildSync({
+  require("esbuild").buildSync({
     bundle: true,
     minify: false,
     entryPoints: ["./src/plugin.ts"],

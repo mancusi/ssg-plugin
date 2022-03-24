@@ -1,4 +1,4 @@
-import { Manifest } from "./manifest";
+import { Manifest } from "./manifest.ts";
 
 const pathToModule = new Map();
 
@@ -41,6 +41,11 @@ export type Document = {
   streamOutput: any;
 };
 
+type Data = {
+  document: Document,
+  __meta: any,
+}
+
 type TemplateModule = {
   config: {
     name: string;
@@ -53,13 +58,14 @@ type TemplateModule = {
 /**
  * Takes an array of template modules info and stream documents, processes them, and
  * writes them to disk.
- * @param moduleEntry an array of Deno.DirEntries corresponding to js modules.
- * @param entities an array of stream documents
+ * @param modules an array of TemplateModules
+ * @param data
  */
 export const generateResponses = async (
   modules: TemplateModule[],
-  doc: Document
+  data: Data
 ): Promise<GeneratedPage> => {
+  const {document} = data;
   const featureToValidTemplateModule = new Map<string, TemplateModule>();
   for (const mod of modules) {
     const { config, getPath, render } = mod;
@@ -70,15 +76,15 @@ export const generateResponses = async (
     featureToValidTemplateModule.set(config.name, mod);
   }
 
-  const feature = doc.feature;
+  const feature = document.feature;
   const validModule = featureToValidTemplateModule.get(feature);
   if (!validModule) {
     throw new Error(`could not find module for feature ${feature}`);
   }
 
   return {
-    content: validModule.render(doc.streamOutput),
-    path: validModule.getPath(doc.streamOutput),
+    content: validModule.render(data),
+    path: validModule.getPath(data),
     redirects: [],
   };
 };

@@ -1,11 +1,10 @@
 {
-  "name": "rollup-plugin-yext-sites-ssg",
+  "name": "vite-plugin-yext-sites-ssg",
   "version": "0.0.1",
   "description": "",
   "main": "dist/plugin.js",
   "scripts": {
-    "build": "node src/bundler.js",
-    "fmt": "npx prettier src -w"
+    "build": "node src/bundler.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +14,7 @@
   ],
   "dependencies": {
     "chalk": "^5.0.0",
+    "fs-extra": "^10.0.1",
     "glob": "^7.2.0",
     "handlebars": "^4.7.7",
     "ora": "^6.1.0",

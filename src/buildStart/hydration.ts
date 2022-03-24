@@ -1,5 +1,5 @@
 import path from "path";
-import fs from "fs";
+import fs from "fs-extra";
 import handlebars from "handlebars";
 import { hydrationOutputDir } from "../paths";
 

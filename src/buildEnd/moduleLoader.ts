@@ -14,13 +14,13 @@ export const loadTemplateModules = async (
     try {
       mod = await import(p);
     } catch (e) {
-      throw new Error(`Could not import ${p}`);
+      throw new Error(`Could not import ${p} ${e}`,);
     }
 
     if (!mod.config) {
       throw new Error(`Template at "${p}" does not export a config$`);
     }
-    importedModules.push({ ...mod, bundlePath: p });
+    importedModules.push({ ...mod, serverPath: p });
   }
 
   validateModules(importedModules);
@@ -56,10 +56,11 @@ const validateUniqueFeatureName = (templateModules: TemplateModule[]) => {
 // as metadata about the module used in downstream processing.
 export interface TemplateModule {
   // The path to the server bundle this module was imported from
-  bundlePath: string;
+  serverPath: string;
   config: {
     name: string;
     stream: any;
+    streamId?: string
   };
   getPath: any;
   render: any;

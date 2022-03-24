@@ -15,9 +15,9 @@ export const resolvePath = (relativePath: string): string => {
 const templatePath = "./src/templates";
 const yextPath = "./.yext";
 const hydrationOut = `${yextPath}/hydration_templates`;
-const serverBundleOut = `${yextPath}/server_bundles`;
 const featureJson = "./sites-config/features.json";
 const distPath = "./dist";
+const serverBundleOut = `${distPath}/assets/server`;
 
 export const templateDir = resolvePath(templatePath);
 export const yextDir = resolvePath(yextPath);
@@ -33,3 +33,6 @@ export const distDir = resolvePath(distPath);
  */
 export const manifestPath = (filePath: string): string =>
   `./${path.relative(yextPath, filePath)}`;
+
+  export const rootPath = (filePath: string): string =>
+  `./${path.relative("./", filePath)}`;
