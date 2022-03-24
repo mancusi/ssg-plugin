@@ -30,6 +30,10 @@ const plugin = (): PluginOption[] => ([{
             },
             {}
           ),
+          output: {
+            entryFileNames: "[name]-[hash].js",
+            chunkFileNames: "[name]-[hash].js",
+          }
         },
       },
     };

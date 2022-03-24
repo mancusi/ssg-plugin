@@ -17057,7 +17057,11 @@ var plugin = () => [{
             }
             input[`server/${parsedPath.name}`] = `${templateDir}/${template}`;
             return input;
-          }, {})
+          }, {}),
+          output: {
+            entryFileNames: "[name]-[hash].js",
+            chunkFileNames: "[name]-[hash].js"
+          }
         }
       }
     };
