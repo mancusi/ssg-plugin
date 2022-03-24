@@ -16,18 +16,23 @@ import {
  */
 
 export const Generate = async (data: Document): Promise<GeneratedPage> => {
-  console.log("Loading manifest");
-  const manifest = await loadManifest();
-  console.log("Loaded manifest");
-  console.log("Loading templates");
-  const templates = await readTemplateModules(data.feature, manifest);
-  console.log("Loaded templates");
-  console.log("generating...")
-  const responses = await generateResponses(templates, {
-    document: data,
-    __meta: { manifest },
-  });
+  try {
+    console.log("Loading manifest");
+    const manifest = await loadManifest();
+    console.log("Loaded manifest");
+    console.log("Loading templates");
+    const templates = await readTemplateModules(data.feature, manifest);
+    console.log("Loaded templates");
+    console.log("generating...");
+    const responses = await generateResponses(templates, {
+      document: data,
+      __meta: { manifest },
+    });
 
-  return responses;
+    return responses;
+  } catch (e) {
+    console.error(e);
+    return {};
+  }
 };
 
