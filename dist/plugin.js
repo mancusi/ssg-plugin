@@ -17012,6 +17012,7 @@ var buildEnd_default = async () => {
   let templateModules;
   try {
     const serverBundles = import_glob2.default.sync(path5.join(serverBundleOutputDir, "**/*.js"));
+    console.log(serverBundleOutputDir, serverBundles);
     templateModules = await loadTemplateModules(serverBundles);
     finisher.succeed("Validated template modules");
   } catch (e) {
@@ -17059,8 +17060,8 @@ var plugin = () => [{
             return input;
           }, {}),
           output: {
-            entryFileNames: "[name]-[hash].js",
-            chunkFileNames: "[name]-[hash].js"
+            entryFileNames: "assets/[name]-[hash].js",
+            chunkFileNames: "assets/[name]-[hash].js"
           }
         }
       }
