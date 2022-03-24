@@ -12,11 +12,14 @@ export const readTemplateModules = async (
   const modules = [] as TemplateModule[];
   const path = manifest.bundlePaths[feature];
   if (!path) {
+    console.log(`Could not find path for feature ${feature}`);
     throw new Error(`Could not find path for feature ${feature}`);
   }
   let importedModule = pathToModule.get(path);
   if (!importedModule) {
+    console.log("importing", path);
     importedModule = await import(path);
+    console.log("imported", path);
     const { config, getPath, render } = importedModule;
     if (!config || !getPath || !render) {
       console.error(path, importedModule);
@@ -24,6 +27,7 @@ export const readTemplateModules = async (
     }
     pathToModule.set(path, importedModule);
   }
+  console.log("validated", path);
   modules.push(importedModule as TemplateModule);
 
   return modules;
