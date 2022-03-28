@@ -1,6 +1,6 @@
 import { Plugin, PluginOption } from "vite";
 import buildStart from "./buildStart/buildStart";
-import buildEnd from "./buildEnd/buildEnd";
+import closeBundle from "./onComplete/onComplete";
 import { readdir } from "fs/promises";
 import { parse } from "path";
 import * as paths from "./paths";
@@ -8,6 +8,7 @@ import * as paths from "./paths";
 const plugin = (): PluginOption[] => ([{
   name: "yext-sites-ssg",
   config: async (config) => {
+    await buildStart();
     return {
       build: {
         manifest: true,
@@ -34,8 +35,7 @@ const plugin = (): PluginOption[] => ([{
       },
     };
   },
-  buildStart,
-  buildEnd,
+  closeBundle,
 }]);
 
 export default plugin;

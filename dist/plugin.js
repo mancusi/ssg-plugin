@@ -16917,11 +16917,11 @@ var yextBanner = `
       Built with the Yext SSG Plugin
 `;
 
-// src/buildEnd/buildEnd.ts
+// src/onComplete/onComplete.ts
 var import_glob2 = __toESM(require_glob());
 var path5 = __toESM(require("path"));
 
-// src/buildEnd/feature.ts
+// src/onComplete/feature.ts
 var import_fs_extra2 = __toESM(require_lib());
 var import_path2 = __toESM(require("path"));
 var createFeatureJson = async (templateModules, featurePath) => {
@@ -16960,7 +16960,7 @@ var createFeatureJson = async (templateModules, featurePath) => {
   return featureNameToBundlePath;
 };
 
-// src/buildEnd/manifest.ts
+// src/onComplete/manifest.ts
 var import_fs_extra3 = __toESM(require_lib());
 var generateManifestFile = (featureNameToBundlePath) => {
   const relativeBundlePaths = Array.from(featureNameToBundlePath.entries()).map(([name, path6]) => [name, rootPath(path6)]);
@@ -16975,7 +16975,7 @@ var generateManifestFile = (featureNameToBundlePath) => {
   import_fs_extra3.default.writeFileSync(`${yextDir}/manifest.json`, JSON.stringify(manifest, null, "  "));
 };
 
-// src/buildEnd/moduleLoader.ts
+// src/onComplete/moduleLoader.ts
 var loadTemplateModules = async (serverBundlePaths) => {
   const importedModules = [];
   for (const p of serverBundlePaths) {
@@ -17006,8 +17006,8 @@ var validateUniqueFeatureName = (templateModules) => {
   });
 };
 
-// src/buildEnd/buildEnd.ts
-var buildEnd_default = async () => {
+// src/onComplete/onComplete.ts
+var onComplete_default = async () => {
   let finisher = log_default.timedLog({ startLog: "Validating template modules" });
   let templateModules;
   try {
@@ -17045,6 +17045,7 @@ var import_path3 = require("path");
 var plugin = () => [{
   name: "yext-sites-ssg",
   config: async (config) => {
+    await buildStart_default();
     return {
       build: {
         manifest: true,
@@ -17062,8 +17063,7 @@ var plugin = () => [{
       }
     };
   },
-  buildStart: buildStart_default,
-  buildEnd: buildEnd_default
+  closeBundle: onComplete_default
 }];
 var plugin_default = plugin;
 module.exports = __toCommonJS(plugin_exports);
