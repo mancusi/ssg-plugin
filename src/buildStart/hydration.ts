@@ -1,7 +1,6 @@
 import path from "path";
 import fs from "fs-extra";
 import handlebars from "handlebars";
-import { hydrationOutputDir } from "../paths";
 
 const hydrationTemplate = `import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -18,7 +17,7 @@ const genHydrationTemplates = (importPath: string) =>
  *
  */
 export const generateHydrationEntryPoints = async (
-  reactEntryPoints: string[]
+  reactEntryPoints: string[], hydrationOutputDir
 ) => {
   reactEntryPoints.forEach(generateEntryPoint);
 };
@@ -29,7 +28,7 @@ export const generateHydrationEntryPoints = async (
  *
  * @param templatePath the path of the template to generate a hydration entry-point for.
  */
-const generateEntryPoint = (templatePath: string) => {
+const generateEntryPoint = (templatePath: string, hydrationOutputDir) => {
   const basename = path.basename(templatePath);
   const extension = path.extname(templatePath);
   const absoluteTemplatePath = path.resolve(templatePath);

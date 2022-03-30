@@ -1,4 +1,4 @@
-import * as paths from "../paths";
+import { Paths } from "../paths";
 import * as path from "path";
 import glob from "glob";
 import logger from "../log";
@@ -7,7 +7,7 @@ import { generateHydrationEntryPoints } from "./hydration";
 
 const REACT_EXTENSIONS = new Set([".tsx", ".jsx"]);
 
-export default async () => {
+export default async (paths: Paths) => {
   console.log(yextBanner);
   clean();
 
@@ -22,7 +22,7 @@ export default async () => {
   let finisher = logger.timedLog({
     startLog: "Generating entry-points for hydration",
   });
-  await generateHydrationEntryPoints(reactTemplates);
+  await generateHydrationEntryPoints(reactTemplates, paths.hydrationOutputDir);
   finisher.succeed(
     `Generated ${reactTemplates.length} hydration entry-point${
       reactTemplates.length > 1 ? "s" : ""

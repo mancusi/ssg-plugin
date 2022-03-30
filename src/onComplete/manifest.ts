@@ -1,6 +1,6 @@
 import fs from "fs-extra";
 import glob from "glob";
-import { distDir, rootPath, yextDir } from "../paths";
+import {Paths} from "../paths";
 
 /**
  * Creates a manifest.json for use with the Yext Sites plugin
@@ -8,7 +8,8 @@ import { distDir, rootPath, yextDir } from "../paths";
  * feature.
  */
 export const generateManifestFile = (
-  featureNameToBundlePath: Map<string, string>
+  featureNameToBundlePath: Map<string, string>,
+  {distDir, yextDir, rootPath}: Paths,
 ): void => {
   const relativeBundlePaths = Array.from(featureNameToBundlePath.entries()).map(
     ([name, path]) => [name, rootPath(path)]

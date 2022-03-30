@@ -4,7 +4,6 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -12,22 +11,16 @@ var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
 };
-var __reExport = (target, module2, copyDefault, desc) => {
-  if (module2 && typeof module2 === "object" || typeof module2 === "function") {
-    for (let key of __getOwnPropNames(module2))
-      if (!__hasOwnProp.call(target, key) && (copyDefault || key !== "default"))
-        __defProp(target, key, { get: () => module2[key], enumerable: !(desc = __getOwnPropDesc(module2, key)) || desc.enumerable });
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
   }
-  return target;
+  return to;
 };
-var __toESM = (module2, isNodeMode) => {
-  return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", !isNodeMode && module2 && module2.__esModule ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
-};
-var __toCommonJS = /* @__PURE__ */ ((cache) => {
-  return (module2, temp) => {
-    return cache && cache.get(module2) || (temp = __reExport(__markAsModule({}), module2, 1), cache && cache.set(module2, temp), temp);
-  };
-})(typeof WeakMap !== "undefined" ? /* @__PURE__ */ new WeakMap() : 0);
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // node_modules/fs.realpath/old.js
 var require_old = __commonJS({
@@ -2581,11 +2574,11 @@ var require_signals = __commonJS({
 // node_modules/signal-exit/index.js
 var require_signal_exit = __commonJS({
   "node_modules/signal-exit/index.js"(exports, module2) {
-    var process7 = global.process;
-    var processOk = function(process8) {
-      return process8 && typeof process8 === "object" && typeof process8.removeListener === "function" && typeof process8.emit === "function" && typeof process8.reallyExit === "function" && typeof process8.listeners === "function" && typeof process8.kill === "function" && typeof process8.pid === "number" && typeof process8.on === "function";
+    var process8 = global.process;
+    var processOk = function(process9) {
+      return process9 && typeof process9 === "object" && typeof process9.removeListener === "function" && typeof process9.emit === "function" && typeof process9.reallyExit === "function" && typeof process9.listeners === "function" && typeof process9.kill === "function" && typeof process9.pid === "number" && typeof process9.on === "function";
     };
-    if (!processOk(process7)) {
+    if (!processOk(process8)) {
       module2.exports = function() {
         return function() {
         };
@@ -2593,15 +2586,15 @@ var require_signal_exit = __commonJS({
     } else {
       assert = require("assert");
       signals = require_signals();
-      isWin = /^win/i.test(process7.platform);
+      isWin = /^win/i.test(process8.platform);
       EE = require("events");
       if (typeof EE !== "function") {
         EE = EE.EventEmitter;
       }
-      if (process7.__signal_exit_emitter__) {
-        emitter = process7.__signal_exit_emitter__;
+      if (process8.__signal_exit_emitter__) {
+        emitter = process8.__signal_exit_emitter__;
       } else {
-        emitter = process7.__signal_exit_emitter__ = new EE();
+        emitter = process8.__signal_exit_emitter__ = new EE();
         emitter.count = 0;
         emitter.emitted = {};
       }
@@ -2638,12 +2631,12 @@ var require_signal_exit = __commonJS({
         loaded = false;
         signals.forEach(function(sig) {
           try {
-            process7.removeListener(sig, sigListeners[sig]);
+            process8.removeListener(sig, sigListeners[sig]);
           } catch (er) {
           }
         });
-        process7.emit = originalProcessEmit;
-        process7.reallyExit = originalProcessReallyExit;
+        process8.emit = originalProcessEmit;
+        process8.reallyExit = originalProcessReallyExit;
         emitter.count -= 1;
       };
       module2.exports.unload = unload;
@@ -2660,7 +2653,7 @@ var require_signal_exit = __commonJS({
           if (!processOk(global.process)) {
             return;
           }
-          var listeners = process7.listeners(sig);
+          var listeners = process8.listeners(sig);
           if (listeners.length === emitter.count) {
             unload();
             emit("exit", null, sig);
@@ -2668,7 +2661,7 @@ var require_signal_exit = __commonJS({
             if (isWin && sig === "SIGHUP") {
               sig = "SIGINT";
             }
-            process7.kill(process7.pid, sig);
+            process8.kill(process8.pid, sig);
           }
         };
       });
@@ -2684,35 +2677,35 @@ var require_signal_exit = __commonJS({
         emitter.count += 1;
         signals = signals.filter(function(sig) {
           try {
-            process7.on(sig, sigListeners[sig]);
+            process8.on(sig, sigListeners[sig]);
             return true;
           } catch (er) {
             return false;
           }
         });
-        process7.emit = processEmit;
-        process7.reallyExit = processReallyExit;
+        process8.emit = processEmit;
+        process8.reallyExit = processReallyExit;
       };
       module2.exports.load = load;
-      originalProcessReallyExit = process7.reallyExit;
+      originalProcessReallyExit = process8.reallyExit;
       processReallyExit = function processReallyExit2(code) {
         if (!processOk(global.process)) {
           return;
         }
-        process7.exitCode = code || 0;
-        emit("exit", process7.exitCode, null);
-        emit("afterexit", process7.exitCode, null);
-        originalProcessReallyExit.call(process7, process7.exitCode);
+        process8.exitCode = code || 0;
+        emit("exit", process8.exitCode, null);
+        emit("afterexit", process8.exitCode, null);
+        originalProcessReallyExit.call(process8, process8.exitCode);
       };
-      originalProcessEmit = process7.emit;
+      originalProcessEmit = process8.emit;
       processEmit = function processEmit2(ev, arg) {
         if (ev === "exit" && processOk(global.process)) {
           if (arg !== void 0) {
-            process7.exitCode = arg;
+            process8.exitCode = arg;
           }
           var ret = originalProcessEmit.apply(this, arguments);
-          emit("exit", process7.exitCode, null);
-          emit("afterexit", process7.exitCode, null);
+          emit("exit", process8.exitCode, null);
+          emit("afterexit", process8.exitCode, null);
           return ret;
         } else {
           return originalProcessEmit.apply(this, arguments);
@@ -4657,7 +4650,7 @@ var require_buffer_list = __commonJS({
         }
       }, {
         key: "join",
-        value: function join2(s) {
+        value: function join3(s) {
           if (this.length === 0)
             return "";
           var p = this.head;
@@ -13260,7 +13253,7 @@ var require_util = __commonJS({
       return path6;
     }
     exports.normalize = normalize;
-    function join2(aRoot, aPath) {
+    function join3(aRoot, aPath) {
       if (aRoot === "") {
         aRoot = ".";
       }
@@ -13292,7 +13285,7 @@ var require_util = __commonJS({
       }
       return joined;
     }
-    exports.join = join2;
+    exports.join = join3;
     exports.isAbsolute = function(aPath) {
       return aPath.charAt(0) === "/" || urlRegexp.test(aPath);
     };
@@ -13465,7 +13458,7 @@ var require_util = __commonJS({
             parsed.path = parsed.path.substring(0, index + 1);
           }
         }
-        sourceURL = join2(urlGenerate(parsed), sourceURL);
+        sourceURL = join3(urlGenerate(parsed), sourceURL);
       }
       return normalize(sourceURL);
     }
@@ -15886,31 +15879,10 @@ var plugin_exports = {};
 __export(plugin_exports, {
   default: () => plugin_default
 });
-
-// src/paths.ts
-var path = __toESM(require("path"));
-var fileUrl = new URL("http://www.example.com");
-var __dirname = path.dirname(fileUrl.pathname);
-var resolvePath = (relativePath) => {
-  return path.resolve(__dirname, path.relative(__dirname, relativePath));
-};
-var templatePath = "./src/templates";
-var yextPath = "./.yext";
-var hydrationOut = `${yextPath}/hydration_templates`;
-var featureJson = "./sites-config/features.json";
-var distPath = "./dist";
-var serverBundleOut = `${distPath}/assets/server`;
-var templateDir = resolvePath(templatePath);
-var yextDir = resolvePath(yextPath);
-var hydrationOutputDir = resolvePath(hydrationOut);
-var hydrationBundleOutputDir = resolvePath(`${distPath}/hydration`);
-var serverBundleOutputDir = resolvePath(serverBundleOut);
-var featureJsonDir = resolvePath(featureJson);
-var distDir = resolvePath(distPath);
-var rootPath = (filePath) => `./${path.relative("./", filePath)}`;
+module.exports = __toCommonJS(plugin_exports);
 
 // src/buildStart/buildStart.ts
-var path3 = __toESM(require("path"));
+var path2 = __toESM(require("path"));
 var import_glob = __toESM(require_glob());
 
 // src/timing.ts
@@ -15926,7 +15898,7 @@ var startTimer = () => {
 };
 
 // node_modules/ora/index.js
-var import_node_process5 = __toESM(require("node:process"), 1);
+var import_node_process6 = __toESM(require("node:process"), 1);
 
 // node_modules/chalk/source/vendor/ansi-styles/index.js
 var ANSI_BACKGROUND_OFFSET = 10;
@@ -16444,11 +16416,12 @@ var cli_cursor_default = cliCursor;
 var import_cli_spinners = __toESM(require_cli_spinners(), 1);
 
 // node_modules/is-unicode-supported/index.js
+var import_node_process4 = __toESM(require("node:process"), 1);
 function isUnicodeSupported() {
-  if (process.platform !== "win32") {
-    return process.env.TERM !== "linux";
+  if (import_node_process4.default.platform !== "win32") {
+    return import_node_process4.default.env.TERM !== "linux";
   }
-  return Boolean(process.env.CI) || Boolean(process.env.WT_SESSION) || process.env.ConEmuTask === "{cmd::Cmder}" || process.env.TERM_PROGRAM === "vscode" || process.env.TERM === "xterm-256color" || process.env.TERM === "alacritty";
+  return Boolean(import_node_process4.default.env.CI) || Boolean(import_node_process4.default.env.WT_SESSION) || import_node_process4.default.env.ConEmuTask === "{cmd::Cmder}" || import_node_process4.default.env.TERM_PROGRAM === "vscode" || import_node_process4.default.env.TERM === "xterm-256color" || import_node_process4.default.env.TERM === "alacritty" || import_node_process4.default.env.TERMINAL_EMULATOR === "JetBrains-JediTerm";
 }
 
 // node_modules/log-symbols/index.js
@@ -16493,7 +16466,7 @@ function isInteractive({ stream = process.stdout } = {}) {
 }
 
 // node_modules/ora/utilities.js
-var import_node_process4 = __toESM(require("node:process"), 1);
+var import_node_process5 = __toESM(require("node:process"), 1);
 var import_node_readline = __toESM(require("node:readline"), 1);
 var import_bl = __toESM(require_bl(), 1);
 var ASCII_ETX_CODE = 3;
@@ -16503,20 +16476,20 @@ var StdinDiscarder = class {
   #ourEmit;
   #rl;
   constructor() {
-    this.#mutedStream.pipe(import_node_process4.default.stdout);
+    this.#mutedStream.pipe(import_node_process5.default.stdout);
     const self = this;
     this.#ourEmit = function(event, data, ...args) {
-      const { stdin } = import_node_process4.default;
+      const { stdin } = import_node_process5.default;
       if (self.#requests > 0 || stdin.emit === self.#ourEmit) {
         if (event === "keypress") {
           return;
         }
         if (event === "data" && data.includes(ASCII_ETX_CODE)) {
-          import_node_process4.default.emit("SIGINT");
+          import_node_process5.default.emit("SIGINT");
         }
         Reflect.apply(self.#ourEmit, this, [event, data, ...args]);
       } else {
-        Reflect.apply(import_node_process4.default.stdin.emit, this, [event, data, ...args]);
+        Reflect.apply(import_node_process5.default.stdin.emit, this, [event, data, ...args]);
       }
     };
   }
@@ -16536,24 +16509,24 @@ var StdinDiscarder = class {
     }
   }
   _realStart() {
-    if (import_node_process4.default.platform === "win32") {
+    if (import_node_process5.default.platform === "win32") {
       return;
     }
     this.#rl = import_node_readline.default.createInterface({
-      input: import_node_process4.default.stdin,
+      input: import_node_process5.default.stdin,
       output: this.#mutedStream
     });
     this.#rl.on("SIGINT", () => {
-      if (import_node_process4.default.listenerCount("SIGINT") === 0) {
-        import_node_process4.default.emit("SIGINT");
+      if (import_node_process5.default.listenerCount("SIGINT") === 0) {
+        import_node_process5.default.emit("SIGINT");
       } else {
         this.#rl.close();
-        import_node_process4.default.kill(import_node_process4.default.pid, "SIGINT");
+        import_node_process5.default.kill(import_node_process5.default.pid, "SIGINT");
       }
     });
   }
   _realStop() {
-    if (import_node_process4.default.platform === "win32") {
+    if (import_node_process5.default.platform === "win32") {
       return;
     }
     this.#rl.close();
@@ -16590,7 +16563,7 @@ var Ora = class {
     }
     this.#options = {
       color: "cyan",
-      stream: import_node_process5.default.stderr,
+      stream: import_node_process6.default.stderr,
       discardStdin: true,
       hideCursor: true,
       ...options
@@ -16604,7 +16577,7 @@ var Ora = class {
     this.text = this.#options.text;
     this.prefixText = this.#options.prefixText;
     this.indent = this.#options.indent;
-    if (import_node_process5.default.env.NODE_ENV === "test") {
+    if (import_node_process6.default.env.NODE_ENV === "test") {
       this._stream = this.#stream;
       this._isEnabled = this.#isEnabled;
       Object.defineProperty(this, "_linesToClear", {
@@ -16771,7 +16744,7 @@ var Ora = class {
     if (this.#options.hideCursor) {
       cli_cursor_default.hide(this.#stream);
     }
-    if (this.#options.discardStdin && import_node_process5.default.stdin.isTTY) {
+    if (this.#options.discardStdin && import_node_process6.default.stdin.isTTY) {
       this.#isDiscardingStdin = true;
       stdinDiscarder.start();
     }
@@ -16790,7 +16763,7 @@ var Ora = class {
     if (this.#options.hideCursor) {
       cli_cursor_default.show(this.#stream);
     }
-    if (this.#options.discardStdin && import_node_process5.default.stdin.isTTY && this.#isDiscardingStdin) {
+    if (this.#options.discardStdin && import_node_process6.default.stdin.isTTY && this.#isDiscardingStdin) {
       stdinDiscarder.stop();
       this.#isDiscardingStdin = false;
     }
@@ -16855,10 +16828,10 @@ import { Page } from "{{importPath}}";
 const data = (window as any).__INITIAL__DATA__;
 ReactDOM.hydrate(<Page data={data} />, document.getElementById("reactele"));`;
 var genHydrationTemplates = (importPath) => import_handlebars.default.compile(hydrationTemplate)({ importPath });
-var generateHydrationEntryPoints = async (reactEntryPoints) => {
+var generateHydrationEntryPoints = async (reactEntryPoints, hydrationOutputDir) => {
   reactEntryPoints.forEach(generateEntryPoint);
 };
-var generateEntryPoint = (templatePath2) => {
+var generateEntryPoint = (templatePath2, hydrationOutputDir) => {
   const basename = import_path.default.basename(templatePath2);
   const extension = import_path.default.extname(templatePath2);
   const absoluteTemplatePath = import_path.default.resolve(templatePath2);
@@ -16873,15 +16846,15 @@ var generateEntryPoint = (templatePath2) => {
 
 // src/buildStart/buildStart.ts
 var REACT_EXTENSIONS = /* @__PURE__ */ new Set([".tsx", ".jsx"]);
-var buildStart_default = async () => {
+var buildStart_default = async (paths2) => {
   console.log(yextBanner);
   clean();
-  const templates = import_glob.default.sync(`${templateDir}/**/*.{tsx,jsx,js,ts}`);
-  const reactTemplates = templates.filter((templatePath2) => REACT_EXTENSIONS.has(path3.parse(templatePath2).ext));
+  const templates = import_glob.default.sync(`${paths2.templateDir}/**/*.{tsx,jsx,js,ts}`);
+  const reactTemplates = templates.filter((templatePath2) => REACT_EXTENSIONS.has(path2.parse(templatePath2).ext));
   let finisher = log_default.timedLog({
     startLog: "Generating entry-points for hydration"
   });
-  await generateHydrationEntryPoints(reactTemplates);
+  await generateHydrationEntryPoints(reactTemplates, paths2.hydrationOutputDir);
   finisher.succeed(`Generated ${reactTemplates.length} hydration entry-point${reactTemplates.length > 1 ? "s" : ""}`);
 };
 var clean = () => {
@@ -16889,7 +16862,7 @@ var clean = () => {
     startLog: "Cleaning build artifacts"
   });
   try {
-    import_fs.default.rmSync(yextDir, { recursive: true });
+    import_fs.default.rmSync(paths.yextDir, { recursive: true });
     finisher.succeed("Finished cleaning");
   } catch (e) {
     finisher.fail("Nothing to clean");
@@ -16927,7 +16900,7 @@ var yextBanner = `
 
 // src/onComplete/onComplete.ts
 var import_glob2 = __toESM(require_glob());
-var path5 = __toESM(require("path"));
+var path4 = __toESM(require("path"));
 
 // src/onComplete/feature.ts
 var import_fs_extra2 = __toESM(require_lib());
@@ -16970,8 +16943,8 @@ var createFeatureJson = async (templateModules, featurePath) => {
 
 // src/onComplete/manifest.ts
 var import_fs_extra3 = __toESM(require_lib());
-var generateManifestFile = (featureNameToBundlePath) => {
-  const relativeBundlePaths = Array.from(featureNameToBundlePath.entries()).map(([name, path6]) => [name, rootPath(path6)]);
+var generateManifestFile = (featureNameToBundlePath, { distDir, yextDir, rootPath: rootPath2 }) => {
+  const relativeBundlePaths = Array.from(featureNameToBundlePath.entries()).map(([name, path6]) => [name, rootPath2(path6)]);
   let bundlerManifest = Buffer.from("{}");
   if (import_fs_extra3.default.existsSync(`${distDir}/manifest.json`)) {
     bundlerManifest = import_fs_extra3.default.readFileSync(`${distDir}/manifest.json`);
@@ -17015,66 +16988,117 @@ var validateUniqueFeatureName = (templateModules) => {
 };
 
 // src/onComplete/onComplete.ts
-var onComplete_default = async () => {
-  let finisher = log_default.timedLog({ startLog: "Validating template modules" });
-  let templateModules;
-  try {
-    const serverBundles = import_glob2.default.sync(path5.join(serverBundleOutputDir, "**/*.js"));
-    templateModules = await loadTemplateModules(serverBundles);
-    finisher.succeed("Validated template modules");
-  } catch (e) {
-    finisher.fail("One or more template modules failed validation");
-    console.error(e);
-    return;
-  }
-  finisher = log_default.timedLog({ startLog: "Writing sites-config/feature.json" });
-  let featureNameToBundlePath;
-  try {
-    featureNameToBundlePath = await createFeatureJson(templateModules, featureJsonDir);
-    finisher.succeed("Successfully wrote sites-config/feature.json");
-  } catch (e) {
-    finisher.fail("Failed to write sites-config/features.json");
-    console.error(e);
-    return;
-  }
-  finisher = log_default.timedLog({ startLog: "Writing .yext/manifest.json" });
-  try {
-    await generateManifestFile(featureNameToBundlePath);
-    finisher.succeed("Successfully wrote .yext/manifest.json");
-  } catch (e) {
-    finisher.fail("Failed to write .yext/manifest.json");
-    console.error(e);
-  }
+var onComplete_default = (paths2) => {
+  return async () => {
+    let finisher = log_default.timedLog({ startLog: "Validating template modules" });
+    let templateModules;
+    try {
+      const serverBundles = import_glob2.default.sync(path4.join(paths2.serverBundleOutputDir, "**/*.js"));
+      templateModules = await loadTemplateModules(serverBundles);
+      finisher.succeed("Validated template modules");
+    } catch (e) {
+      finisher.fail("One or more template modules failed validation");
+      console.error(e);
+      return;
+    }
+    finisher = log_default.timedLog({ startLog: `Writing ${paths2.featureJsonDir}` });
+    let featureNameToBundlePath;
+    try {
+      featureNameToBundlePath = await createFeatureJson(templateModules, paths2.featureJsonDir);
+      finisher.succeed(`Successfully wrote ${paths2.featureJsonDir}`);
+    } catch (e) {
+      finisher.fail(`Failed to write ${paths2.featureJsonDir}`);
+      console.error(e);
+      return;
+    }
+    finisher = log_default.timedLog({ startLog: "Writing .yext/manifest.json" });
+    try {
+      await generateManifestFile(featureNameToBundlePath, paths2);
+      finisher.succeed("Successfully wrote .yext/manifest.json");
+    } catch (e) {
+      finisher.fail("Failed to write .yext/manifest.json");
+      console.error(e);
+    }
+  };
 };
 
 // src/plugin.ts
 var import_promises = require("fs/promises");
 var import_path3 = require("path");
-var plugin = () => [{
-  name: "yext-sites-ssg",
-  config: async (config) => {
-    await buildStart_default();
-    return {
-      build: {
-        manifest: true,
-        rollupOptions: {
-          preserveEntrySignatures: "strict",
-          input: (await (0, import_promises.readdir)(templateDir)).reduce((input, template) => {
-            const parsedPath = (0, import_path3.parse)(template);
-            if (parsedPath.ext.includes("tsx")) {
-              input[`hydrate/${parsedPath.name}`] = `${hydrationOutputDir}/${template}`;
+
+// src/paths.ts
+var path5 = __toESM(require("path"));
+var fileUrl = new URL("http://www.example.com");
+var __dirname = path5.dirname(fileUrl.pathname);
+var resolvePath = (relativePath) => {
+  return path5.resolve(__dirname, path5.relative(__dirname, relativePath));
+};
+var templatePath = "./src/templates";
+var yextPath = "./.yext";
+var hydrationOut = `${yextPath}/hydration_templates`;
+var featureJson = "./sites-config/features.json";
+var distPath = "./dist";
+var serverBundleOut = `${distPath}/assets/server`;
+var manifestPath = (filePath) => `./${path5.relative(yextPath, filePath)}`;
+var rootPath = (filePath) => `./${path5.relative("./", filePath)}`;
+var paths_default = (opts) => {
+  if (opts) {
+    if (opts.featuresOut) {
+      featureJson = path5.join(opts.featuresOut, "features.json");
+    }
+  }
+  const templateDir = resolvePath(templatePath);
+  const yextDir = resolvePath(yextPath);
+  const hydrationOutputDir = resolvePath(hydrationOut);
+  const hydrationBundleOutputDir = resolvePath(`${distPath}/hydration`);
+  const serverBundleOutputDir = resolvePath(serverBundleOut);
+  const featureJsonDir = resolvePath(featureJson);
+  const distDir = resolvePath(distPath);
+  return {
+    resolvePath,
+    templateDir,
+    yextDir,
+    hydrationBundleOutputDir,
+    hydrationOutputDir,
+    serverBundleOutputDir,
+    featureJsonDir,
+    distDir,
+    manifestPath,
+    rootPath
+  };
+};
+
+// src/plugin.ts
+var plugin = (opts = {}) => {
+  const paths2 = paths_default({ featuresOut: opts.featuresOut });
+  const closeBundle = onComplete_default(paths2);
+  return [
+    {
+      name: "yext-sites-ssg",
+      config: async (config) => {
+        await buildStart_default(paths2);
+        return {
+          build: {
+            manifest: true,
+            rollupOptions: {
+              preserveEntrySignatures: "strict",
+              input: (await (0, import_promises.readdir)(paths2.templateDir)).reduce((input, template) => {
+                const parsedPath = (0, import_path3.parse)(template);
+                if (parsedPath.ext.includes("tsx")) {
+                  input[`hydrate/${parsedPath.name}`] = `${paths2.hydrationOutputDir}/${template}`;
+                }
+                input[`server/${parsedPath.name}`] = `${paths2.templateDir}/${template}`;
+                return input;
+              }, {})
             }
-            input[`server/${parsedPath.name}`] = `${templateDir}/${template}`;
-            return input;
-          }, {})
-        }
-      }
-    };
-  },
-  closeBundle: onComplete_default
-}];
+          }
+        };
+      },
+      closeBundle
+    }
+  ];
+};
 var plugin_default = plugin;
-module.exports = __toCommonJS(plugin_exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {});
 /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
