@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "outDir": "./dist/",
+    "outDir": "./types/",
     "module": "esnext",
     "noImplicitAny": false,
     "jsx": "react",
@@ -9,6 +9,14 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "declaration": true,
+    "emitDeclarationOnly": true
   },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "plugin"
+  ]
 }
