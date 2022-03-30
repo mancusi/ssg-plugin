@@ -16846,23 +16846,23 @@ var generateEntryPoint = (templatePath2, hydrationOutputDir) => {
 
 // src/buildStart/buildStart.ts
 var REACT_EXTENSIONS = /* @__PURE__ */ new Set([".tsx", ".jsx"]);
-var buildStart_default = async (paths2) => {
+var buildStart_default = async (paths) => {
   console.log(yextBanner);
-  clean();
-  const templates = import_glob.default.sync(`${paths2.templateDir}/**/*.{tsx,jsx,js,ts}`);
+  clean(paths.yextDir);
+  const templates = import_glob.default.sync(`${paths.templateDir}/**/*.{tsx,jsx,js,ts}`);
   const reactTemplates = templates.filter((templatePath2) => REACT_EXTENSIONS.has(path2.parse(templatePath2).ext));
   let finisher = log_default.timedLog({
     startLog: "Generating entry-points for hydration"
   });
-  await generateHydrationEntryPoints(reactTemplates, paths2.hydrationOutputDir);
+  await generateHydrationEntryPoints(reactTemplates, paths.hydrationOutputDir);
   finisher.succeed(`Generated ${reactTemplates.length} hydration entry-point${reactTemplates.length > 1 ? "s" : ""}`);
 };
-var clean = () => {
+var clean = (yextDir) => {
   const finisher = log_default.timedLog({
     startLog: "Cleaning build artifacts"
   });
   try {
-    import_fs.default.rmSync(paths.yextDir, { recursive: true });
+    import_fs.default.rmSync(yextDir, { recursive: true });
     finisher.succeed("Finished cleaning");
   } catch (e) {
     finisher.fail("Nothing to clean");
@@ -16988,12 +16988,12 @@ var validateUniqueFeatureName = (templateModules) => {
 };
 
 // src/onComplete/onComplete.ts
-var onComplete_default = (paths2) => {
+var onComplete_default = (paths) => {
   return async () => {
     let finisher = log_default.timedLog({ startLog: "Validating template modules" });
     let templateModules;
     try {
-      const serverBundles = import_glob2.default.sync(path4.join(paths2.serverBundleOutputDir, "**/*.js"));
+      const serverBundles = import_glob2.default.sync(path4.join(paths.serverBundleOutputDir, "**/*.js"));
       templateModules = await loadTemplateModules(serverBundles);
       finisher.succeed("Validated template modules");
     } catch (e) {
@@ -17001,19 +17001,19 @@ var onComplete_default = (paths2) => {
       console.error(e);
       return;
     }
-    finisher = log_default.timedLog({ startLog: `Writing ${paths2.featureJsonDir}` });
+    finisher = log_default.timedLog({ startLog: `Writing ${paths.featureJsonDir}` });
     let featureNameToBundlePath;
     try {
-      featureNameToBundlePath = await createFeatureJson(templateModules, paths2.featureJsonDir);
-      finisher.succeed(`Successfully wrote ${paths2.featureJsonDir}`);
+      featureNameToBundlePath = await createFeatureJson(templateModules, paths.featureJsonDir);
+      finisher.succeed(`Successfully wrote ${paths.featureJsonDir}`);
     } catch (e) {
-      finisher.fail(`Failed to write ${paths2.featureJsonDir}`);
+      finisher.fail(`Failed to write ${paths.featureJsonDir}`);
       console.error(e);
       return;
     }
     finisher = log_default.timedLog({ startLog: "Writing .yext/manifest.json" });
     try {
-      await generateManifestFile(featureNameToBundlePath, paths2);
+      await generateManifestFile(featureNameToBundlePath, paths);
       finisher.succeed("Successfully wrote .yext/manifest.json");
     } catch (e) {
       finisher.fail("Failed to write .yext/manifest.json");
@@ -17070,24 +17070,24 @@ var paths_default = (opts) => {
 
 // src/plugin.ts
 var plugin = (opts = {}) => {
-  const paths2 = paths_default({ featuresOut: opts.featuresOut });
-  const closeBundle = onComplete_default(paths2);
+  const paths = paths_default({ featuresOut: opts.featuresOut });
+  const closeBundle = onComplete_default(paths);
   return [
     {
       name: "yext-sites-ssg",
       config: async (config) => {
-        await buildStart_default(paths2);
+        await buildStart_default(paths);
         return {
           build: {
             manifest: true,
             rollupOptions: {
               preserveEntrySignatures: "strict",
-              input: (await (0, import_promises.readdir)(paths2.templateDir)).reduce((input, template) => {
+              input: (await (0, import_promises.readdir)(paths.templateDir)).reduce((input, template) => {
                 const parsedPath = (0, import_path3.parse)(template);
                 if (parsedPath.ext.includes("tsx")) {
-                  input[`hydrate/${parsedPath.name}`] = `${paths2.hydrationOutputDir}/${template}`;
+                  input[`hydrate/${parsedPath.name}`] = `${paths.hydrationOutputDir}/${template}`;
                 }
-                input[`server/${parsedPath.name}`] = `${paths2.templateDir}/${template}`;
+                input[`server/${parsedPath.name}`] = `${paths.templateDir}/${template}`;
                 return input;
               }, {})
             }

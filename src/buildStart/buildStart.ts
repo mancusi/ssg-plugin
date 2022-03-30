@@ -9,7 +9,7 @@ const REACT_EXTENSIONS = new Set([".tsx", ".jsx"]);
 
 export default async (paths: Paths) => {
   console.log(yextBanner);
-  clean();
+  clean(paths.yextDir);
 
   const templates: string[] = glob.sync(
     `${paths.templateDir}/**/*.{tsx,jsx,js,ts}`
@@ -30,12 +30,12 @@ export default async (paths: Paths) => {
   );
 };
 
-const clean = () => {
+const clean = (yextDir: string) => {
   const finisher = logger.timedLog({
     startLog: "Cleaning build artifacts",
   });
   try {
-    fs.rmSync(paths.yextDir, { recursive: true });
+    fs.rmSync(yextDir, { recursive: true });
     finisher.succeed("Finished cleaning");
   } catch (e) {
     finisher.fail("Nothing to clean");
