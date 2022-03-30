@@ -18,9 +18,11 @@ const genHydrationTemplates = (importPath: string) =>
  */
 export const generateHydrationEntryPoints = async (
   reactEntryPoints: string[],
-  hydrationOutputDir
+  hydrationOutputDir: string
 ) => {
-  reactEntryPoints.forEach(generateEntryPoint);
+  reactEntryPoints.forEach((entrypoint) =>
+    generateEntryPoint(entrypoint, hydrationOutputDir)
+  );
 };
 
 /**
@@ -29,7 +31,10 @@ export const generateHydrationEntryPoints = async (
  *
  * @param templatePath the path of the template to generate a hydration entry-point for.
  */
-const generateEntryPoint = (templatePath: string, hydrationOutputDir) => {
+const generateEntryPoint = (
+  templatePath: string,
+  hydrationOutputDir: string
+) => {
   const basename = path.basename(templatePath);
   const extension = path.extname(templatePath);
   const absoluteTemplatePath = path.resolve(templatePath);

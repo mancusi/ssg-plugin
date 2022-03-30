@@ -16829,7 +16829,7 @@ const data = (window as any).__INITIAL__DATA__;
 ReactDOM.hydrate(<Page data={data} />, document.getElementById("reactele"));`;
 var genHydrationTemplates = (importPath) => import_handlebars.default.compile(hydrationTemplate)({ importPath });
 var generateHydrationEntryPoints = async (reactEntryPoints, hydrationOutputDir) => {
-  reactEntryPoints.forEach(generateEntryPoint);
+  reactEntryPoints.forEach((entrypoint) => generateEntryPoint(entrypoint, hydrationOutputDir));
 };
 var generateEntryPoint = (templatePath2, hydrationOutputDir) => {
   const basename = import_path.default.basename(templatePath2);
