@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "outDir": "./types/",
+    "outDir": "./dist/types/",
     "module": "esnext",
     "noImplicitAny": false,
     "jsx": "react",

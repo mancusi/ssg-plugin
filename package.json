@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "",
   "main": "dist/plugin.js",
-  "types": "types/plugin.d.ts",
+  "types": "dist/types/plugin.d.ts",
   "scripts": {
     "build": "node src/bundler.js",
     "types": "npx tsc",
