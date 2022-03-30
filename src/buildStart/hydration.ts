@@ -17,7 +17,8 @@ const genHydrationTemplates = (importPath: string) =>
  *
  */
 export const generateHydrationEntryPoints = async (
-  reactEntryPoints: string[], hydrationOutputDir
+  reactEntryPoints: string[],
+  hydrationOutputDir
 ) => {
   reactEntryPoints.forEach(generateEntryPoint);
 };

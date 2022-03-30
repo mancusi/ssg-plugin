@@ -7,7 +7,8 @@
   "scripts": {
     "build": "node src/bundler.js",
     "types": "npx tsc",
-    "release": "npm run build && npm run types"
+    "release": "npm run build && npm run types",
+    "fmt": "npx prettier -w src"
   },
   "prepublish": "npm run release",
   "author": "",

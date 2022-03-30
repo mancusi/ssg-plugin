@@ -1,4 +1,3 @@
-
 try {
   require("esbuild").buildSync({
     bundle: true,

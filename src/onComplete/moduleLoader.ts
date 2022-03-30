@@ -14,7 +14,7 @@ export const loadTemplateModules = async (
     try {
       mod = await import(p);
     } catch (e) {
-      throw new Error(`Could not import ${p} ${e}`,);
+      throw new Error(`Could not import ${p} ${e}`);
     }
 
     if (!mod.config) {
@@ -60,7 +60,7 @@ export interface TemplateModule {
   config: {
     name: string;
     stream: any;
-    streamId?: string
+    streamId?: string;
   };
   getPath: any;
   render: any;
