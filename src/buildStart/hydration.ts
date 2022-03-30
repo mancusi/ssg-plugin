@@ -4,7 +4,7 @@ import handlebars from "handlebars";
 
 const hydrationTemplate = `import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Page } from "{{importPath}}";
+import Page from "{{importPath}}";
 
 const data = (window as any).__INITIAL__DATA__;
 ReactDOM.hydrate(<Page data={data} />, document.getElementById("reactele"));`;
