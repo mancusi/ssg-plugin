@@ -23,11 +23,11 @@ __export(buildStart_exports, {
   default: () => buildStart_default
 });
 module.exports = __toCommonJS(buildStart_exports);
-var path = __toESM(require("path"));
-var import_glob = __toESM(require("glob"));
-var import_log = __toESM(require("../log"));
-var import_fs = __toESM(require("fs"));
-var import_hydration = require("./hydration");
+var path = __toESM(require("path"), 1);
+var import_glob = __toESM(require("glob"), 1);
+var import_log = __toESM(require("../log"), 1);
+var import_fs = __toESM(require("fs"), 1);
+var import_hydration = require("./hydration.js");
 const REACT_EXTENSIONS = /* @__PURE__ */ new Set([".tsx", ".jsx"]);
 var buildStart_default = async (paths) => {
   console.log(yextBanner);

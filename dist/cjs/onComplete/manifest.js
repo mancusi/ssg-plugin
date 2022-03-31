@@ -23,7 +23,7 @@ __export(manifest_exports, {
   generateManifestFile: () => generateManifestFile
 });
 module.exports = __toCommonJS(manifest_exports);
-var import_fs_extra = __toESM(require("fs-extra"));
+var import_fs_extra = __toESM(require("fs-extra"), 1);
 const generateManifestFile = (featureNameToBundlePath, { distDir, yextDir, rootPath }) => {
   const relativeBundlePaths = Array.from(featureNameToBundlePath.entries()).map(([name, path]) => [name, rootPath(path)]);
   let bundlerManifest = Buffer.from("{}");

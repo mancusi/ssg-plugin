@@ -23,7 +23,7 @@ __export(paths_exports, {
   default: () => paths_default
 });
 module.exports = __toCommonJS(paths_exports);
-var path = __toESM(require("path"));
+var path = __toESM(require("path"), 1);
 const fileUrl = new URL("http://www.example.com");
 const __dirname = path.dirname(fileUrl.pathname);
 const resolvePath = (relativePath) => {

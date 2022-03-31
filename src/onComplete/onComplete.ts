@@ -1,10 +1,10 @@
 import glob from "glob";
 import * as path from "path";
-import { createFeatureJson } from "./feature";
+import { createFeatureJson } from "./feature.js";
 import { Paths } from "../paths";
 import logger from "../log";
-import { generateManifestFile } from "./manifest";
-import { loadTemplateModules, TemplateModuleCollection } from "./moduleLoader";
+import { generateManifestFile } from "./manifest.js";
+import { loadTemplateModules, TemplateModuleCollection } from "./moduleLoader.js";
 
 export default (paths: Paths) => {
   return async () => {

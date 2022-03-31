@@ -23,7 +23,7 @@ __export(timing_exports, {
   startTimer: () => startTimer
 });
 module.exports = __toCommonJS(timing_exports);
-var import_pretty_ms = __toESM(require("pretty-ms"));
+var import_pretty_ms = __toESM(require("pretty-ms"), 1);
 const startTimer = () => {
   const startTime = new Date().getTime();
   return {

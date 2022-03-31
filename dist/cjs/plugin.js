@@ -23,11 +23,11 @@ __export(plugin_exports, {
   default: () => plugin_default
 });
 module.exports = __toCommonJS(plugin_exports);
-var import_buildStart = __toESM(require("./buildStart/buildStart"));
-var import_onComplete = __toESM(require("./onComplete/onComplete"));
+var import_buildStart = __toESM(require("./buildStart/buildStart.js"), 1);
+var import_onComplete = __toESM(require("./onComplete/onComplete.js"), 1);
 var import_promises = require("fs/promises");
 var import_path = require("path");
-var import_paths = __toESM(require("./paths"));
+var import_paths = __toESM(require("./paths.js"), 1);
 const plugin = (opts = {}) => {
   const paths = (0, import_paths.default)({ featuresOut: opts.featuresOut });
   const closeBundle = (0, import_onComplete.default)(paths);

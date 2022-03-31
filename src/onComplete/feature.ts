@@ -1,6 +1,6 @@
 import fs from "fs-extra";
 import path from "path";
-import { TemplateModuleCollection } from "./moduleLoader";
+import { TemplateModuleCollection } from "./moduleLoader.js";
 
 /**
  * Run feature.json Generation. Returns a mapping of feature name to bundle path.

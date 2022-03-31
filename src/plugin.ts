@@ -1,9 +1,9 @@
 import { Plugin, PluginOption } from "vite";
-import buildStart from "./buildStart/buildStart";
-import onComplete from "./onComplete/onComplete";
+import buildStart from "./buildStart/buildStart.js";
+import onComplete from "./onComplete/onComplete.js";
 import { readdir } from "fs/promises";
 import { parse } from "path";
-import pathsInit from "./paths";
+import pathsInit from "./paths.js";
 
 /**
  * Options to configure functionality of the plugin.

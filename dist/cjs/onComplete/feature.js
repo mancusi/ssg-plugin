@@ -23,8 +23,8 @@ __export(feature_exports, {
   createFeatureJson: () => createFeatureJson
 });
 module.exports = __toCommonJS(feature_exports);
-var import_fs_extra = __toESM(require("fs-extra"));
-var import_path = __toESM(require("path"));
+var import_fs_extra = __toESM(require("fs-extra"), 1);
+var import_path = __toESM(require("path"), 1);
 const createFeatureJson = async (templateModules, featurePath) => {
   const features = [];
   const streams = [];

@@ -23,9 +23,9 @@ __export(hydration_exports, {
   generateHydrationEntryPoints: () => generateHydrationEntryPoints
 });
 module.exports = __toCommonJS(hydration_exports);
-var import_path = __toESM(require("path"));
-var import_fs_extra = __toESM(require("fs-extra"));
-var import_handlebars = __toESM(require("handlebars"));
+var import_path = __toESM(require("path"), 1);
+var import_fs_extra = __toESM(require("fs-extra"), 1);
+var import_handlebars = __toESM(require("handlebars"), 1);
 const hydrationTemplate = `import * as React from "react";
 import * as ReactDOM from "react-dom";
 import Page from "{{importPath}}";

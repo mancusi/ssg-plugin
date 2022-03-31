@@ -1,9 +1,9 @@
 import glob from "glob";
 import * as path from "path";
-import { createFeatureJson } from "./feature";
+import { createFeatureJson } from "./feature.js";
 import logger from "../log";
-import { generateManifestFile } from "./manifest";
-import { loadTemplateModules } from "./moduleLoader";
+import { generateManifestFile } from "./manifest.js";
+import { loadTemplateModules } from "./moduleLoader.js";
 var onComplete_default = (paths) => {
   return async () => {
     let finisher = logger.timedLog({ startLog: "Validating template modules" });

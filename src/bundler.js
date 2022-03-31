@@ -1,5 +1,5 @@
-const esbuild = require("esbuild");
-const glob = require("glob");
+import esbuild from "esbuild";
+import glob from "glob";
 
 const builds = []
 

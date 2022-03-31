@@ -23,12 +23,12 @@ __export(onComplete_exports, {
   default: () => onComplete_default
 });
 module.exports = __toCommonJS(onComplete_exports);
-var import_glob = __toESM(require("glob"));
-var path = __toESM(require("path"));
-var import_feature = require("./feature");
-var import_log = __toESM(require("../log"));
-var import_manifest = require("./manifest");
-var import_moduleLoader = require("./moduleLoader");
+var import_glob = __toESM(require("glob"), 1);
+var path = __toESM(require("path"), 1);
+var import_feature = require("./feature.js");
+var import_log = __toESM(require("../log"), 1);
+var import_manifest = require("./manifest.js");
+var import_moduleLoader = require("./moduleLoader.js");
 var onComplete_default = (paths) => {
   return async () => {
     let finisher = import_log.default.timedLog({ startLog: "Validating template modules" });

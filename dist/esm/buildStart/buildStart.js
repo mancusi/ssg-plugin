@@ -2,7 +2,7 @@ import * as path from "path";
 import glob from "glob";
 import logger from "../log";
 import fs from "fs";
-import { generateHydrationEntryPoints } from "./hydration";
+import { generateHydrationEntryPoints } from "./hydration.js";
 const REACT_EXTENSIONS = /* @__PURE__ */ new Set([".tsx", ".jsx"]);
 var buildStart_default = async (paths) => {
   console.log(yextBanner);

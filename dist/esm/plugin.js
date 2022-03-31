@@ -1,8 +1,8 @@
-import buildStart from "./buildStart/buildStart";
-import onComplete from "./onComplete/onComplete";
+import buildStart from "./buildStart/buildStart.js";
+import onComplete from "./onComplete/onComplete.js";
 import { readdir } from "fs/promises";
 import { parse } from "path";
-import pathsInit from "./paths";
+import pathsInit from "./paths.js";
 const plugin = (opts = {}) => {
   const paths = pathsInit({ featuresOut: opts.featuresOut });
   const closeBundle = onComplete(paths);

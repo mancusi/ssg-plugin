@@ -23,9 +23,9 @@ __export(log_exports, {
   default: () => log_default
 });
 module.exports = __toCommonJS(log_exports);
-var import_timing = require("./timing");
-var import_ora = __toESM(require("ora"));
-var import_chalk = __toESM(require("chalk"));
+var import_timing = require("./timing.js");
+var import_ora = __toESM(require("ora"), 1);
+var import_chalk = __toESM(require("chalk"), 1);
 const logger = {};
 logger.timedLog = (opts) => {
   const { startLog } = opts;

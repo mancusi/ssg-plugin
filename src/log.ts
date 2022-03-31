@@ -1,7 +1,7 @@
 /**
  * @fileoverview exports a logger to assist in standardizing logs across the CLI.
  */
-import { startTimer } from "./timing";
+import { startTimer } from "./timing.js";
 import ora from "ora";
 import chalk from "chalk";
 
