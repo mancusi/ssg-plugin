@@ -1,7 +1,7 @@
 import glob from "glob";
 import * as path from "path";
 import { createFeatureJson } from "./feature.js";
-import logger from "../log";
+import logger from "../log.js";
 import { generateManifestFile } from "./manifest.js";
 import { loadTemplateModules } from "./moduleLoader.js";
 var onComplete_default = (paths) => {

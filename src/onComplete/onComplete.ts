@@ -1,8 +1,8 @@
 import glob from "glob";
 import * as path from "path";
 import { createFeatureJson } from "./feature.js";
-import { Paths } from "../paths";
-import logger from "../log";
+import { Paths } from "../paths.js";
+import logger from "../log.js";
 import { generateManifestFile } from "./manifest.js";
 import { loadTemplateModules, TemplateModuleCollection } from "./moduleLoader.js";
 

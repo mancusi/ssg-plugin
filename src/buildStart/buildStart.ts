@@ -1,7 +1,7 @@
-import { Paths } from "../paths";
+import { Paths } from "../paths.js";
 import * as path from "path";
 import glob from "glob";
-import logger from "../log";
+import logger from "../log.js";
 import fs from "fs";
 import { generateHydrationEntryPoints } from "./hydration.js";
 

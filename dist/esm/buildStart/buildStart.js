@@ -1,6 +1,6 @@
 import * as path from "path";
 import glob from "glob";
-import logger from "../log";
+import logger from "../log.js";
 import fs from "fs";
 import { generateHydrationEntryPoints } from "./hydration.js";
 const REACT_EXTENSIONS = /* @__PURE__ */ new Set([".tsx", ".jsx"]);

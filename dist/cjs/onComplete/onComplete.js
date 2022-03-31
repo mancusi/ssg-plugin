@@ -26,7 +26,7 @@ module.exports = __toCommonJS(onComplete_exports);
 var import_glob = __toESM(require("glob"), 1);
 var path = __toESM(require("path"), 1);
 var import_feature = require("./feature.js");
-var import_log = __toESM(require("../log"), 1);
+var import_log = __toESM(require("../log.js"), 1);
 var import_manifest = require("./manifest.js");
 var import_moduleLoader = require("./moduleLoader.js");
 var onComplete_default = (paths) => {

@@ -1,6 +1,5 @@
 import fs from "fs-extra";
-import glob from "glob";
-import { Paths } from "../paths";
+import {Paths} from "../paths.js";
 
 /**
  * Creates a manifest.json for use with the Yext Sites plugin
