@@ -1,18 +1,35 @@
+const esbuild = require("esbuild");
+const glob = require("glob");
+
+const builds = []
+
+// Transpile all files except this one
+const files = glob.sync("./src/**/*\.*").filter(f => f !== "./src/bundler.js");
+
+const commonBuildOpts = {
+  bundle: false,
+  minify: false,
+  entryPoints: files,
+  loader: { ".ts": "ts" },
+  tsconfig: "tsconfig.json",
+  logLevel: "error",
+  platform: "node",
+}
+
+// CJS
 try {
-  require("esbuild").buildSync({
-    bundle: true,
-    minify: false,
-    entryPoints: ["./src/plugin.ts"],
-    outfile: "dist/plugin.js",
-    platform: "node",
-    loader: { ".ts": "ts" },
-    tsconfig: "tsconfig.json",
-    // external: ["@swc/core", "pnpapi", "esbuild", "mini-css-extract-plugin"],
-    // inject: ["./bundler/import-meta-url.js"],
-    // define: {
-    // "import.meta.url": "import_meta_url",
-    // "import.meta.resolve": "import_meta_resolve",
-    // },
-    logLevel: "error",
-  });
-} catch {}
+  builds.push(esbuild.build({
+    ...commonBuildOpts,
+    outdir: "dist/cjs",
+    format: "cjs",
+  }));
+} catch (e) {console.error(e);}
+
+// ESM
+try {
+  builds.push(esbuild.build({
+    ...commonBuildOpts,
+    outdir: "dist/esm",
+    format: "esm",
+  }));
+} catch (e) {console.error(e);}
