@@ -42,11 +42,33 @@ export const createFeatureJson = async (
     fs.mkdirSync(featureDir);
   }
 
+  const featuresJson = mergeFeatureJson(featurePath, features, streams);
   fs.writeFileSync(
     featurePath,
-    JSON.stringify({ features, streams }, null, "  ")
+    JSON.stringify(featuresJson, null, "  ")
   );
   return featureNameToBundlePath;
+};
+
+/**
+ * Overwrites the "features" and "streams" fields in the feature.json while keeping other fields
+ * if the feature.json already exists.
+ */
+const mergeFeatureJson = (
+  featurePath: string,
+  features: FeatureConfig[],
+  streams: any
+) => {
+  let originalFeaturesJson = {} as any;
+  if (fs.existsSync(featurePath)) {
+    originalFeaturesJson = JSON.parse(fs.readFileSync(featurePath));
+  }
+
+  return {
+    ...originalFeaturesJson,
+    features,
+    streams
+  };
 };
 
 interface FeatureConfigBase {
